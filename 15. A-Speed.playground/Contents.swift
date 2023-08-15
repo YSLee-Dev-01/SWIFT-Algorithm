@@ -1,9 +1,7 @@
 import UIKit
 
-let data = Calendar.current.date(from: DateComponents(year: 2016, month: 05, day: 24))
-Calendar.current.component(.weekday, from: data!)
-// array.contains()와 딕셔너리의 시간 차이
-func array() -> TimeInterval {
+// array.contains()와 firstIndex, 딕셔너리의 시간 차이
+func arrayContains() -> TimeInterval {
     var temp: [Int] = []
     (0 ..< Int(100000)).map {
         temp.append($0)
@@ -15,6 +13,17 @@ func array() -> TimeInterval {
     return start.timeIntervalSinceNow
 }
 
+func arrayFirstIndex() -> TimeInterval {
+    var temp: [Int] = []
+    (0 ..< Int(100000)).map {
+        temp.append($0)
+    }
+    
+    let start = Date()
+    _ = temp.firstIndex(of: 99999)
+    
+    return start.timeIntervalSinceNow
+}
 
 func dictionary() -> TimeInterval{
     var temp = [Int: Int]()
@@ -28,8 +37,11 @@ func dictionary() -> TimeInterval{
     return start.timeIntervalSinceNow
 }
 
-print("배열")
-print(-array())
+print("배열, contains")
+print(-arrayContains())
+
+print("배열, firstIndex")
+print(-arrayFirstIndex())
 
 print("딕셔너리")
 print(-dictionary())
