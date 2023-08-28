@@ -1,6 +1,6 @@
 import UIKit
 
-// array.contains()와 firstIndex, 딕셔너리의 시간 차이
+// array.contains()와 firstIndex, filter, 딕셔너리의 시간 차이
 func arrayContains() -> TimeInterval {
     var temp: [Int] = []
     (0 ..< Int(100000)).map {
@@ -25,6 +25,18 @@ func arrayFirstIndex() -> TimeInterval {
     return start.timeIntervalSinceNow
 }
 
+func arrayFilter() -> TimeInterval{
+    var temp: [Int] = []
+    (0 ..< Int(100000)).map {
+        temp.append($0)
+    }
+    
+    let start = Date()
+    _ = temp.filter { $0 == 99999 }
+    
+    return start.timeIntervalSinceNow
+}
+
 func dictionary() -> TimeInterval{
     var temp = [Int: Int]()
     (0 ..< Int(100000)).map {
@@ -42,6 +54,9 @@ print(-arrayContains())
 
 print("배열, firstIndex")
 print(-arrayFirstIndex())
+
+print("배열, filter")
+print(-arrayFilter())
 
 print("딕셔너리")
 print(-dictionary())
