@@ -48,3 +48,24 @@ let graph = dataToGraph(data: data)
 print(graph)
 
 print(search(graph: graph, n: n))
+
+// 그래프 순환 순서 찾기
+func dfs(_  n: Int) -> [Int] {
+    var visited = [Int]()
+    var need: [Int] = [n]
+    
+    while !need.isEmpty {
+        let node = need.removeLast()
+        if visited.contains(node) {continue}
+        visited.append(node)
+        need += graph[node] ?? []
+    }
+    
+    return visited
+}
+
+var answer = [[Int]]()
+for data in graph {
+    answer.append(dfs(data.key))
+}
+print(answer)
