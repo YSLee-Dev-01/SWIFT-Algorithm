@@ -38,4 +38,5 @@ while start != end {
         range.append([start, end - 1])
     }
 }
+// index의 값을 모두 더했을 때 10이 나오는 index
 print(range)
