@@ -1,6 +1,6 @@
 import UIKit
 
-// array.contains()와 firstIndex, filter, 딕셔너리의 시간 차이
+// array.contains()와 firstIndex, filter, 딕셔너리, Set으로 형변환의 시간 차이
 func arrayContains() -> TimeInterval {
     var temp: [Int] = []
     (0 ..< Int(100000)).map {
@@ -49,6 +49,18 @@ func dictionary() -> TimeInterval{
     return start.timeIntervalSinceNow
 }
 
+func arrayToSet() -> TimeInterval {
+    var temp: [Int] = []
+    (0 ..< Int(100000)).map {
+        temp.append($0)
+    }
+    
+    let start = Date()
+    Array(temp[0 ..< 99999])
+    
+    return start.timeIntervalSinceNow
+}
+
 print("배열, contains")
 print(-arrayContains())
 
@@ -60,3 +72,6 @@ print(-arrayFilter())
 
 print("딕셔너리")
 print(-dictionary())
+
+print("Set")
+print(-arrayToSet())
