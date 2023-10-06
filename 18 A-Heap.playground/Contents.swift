@@ -5,6 +5,11 @@ import UIKit
 
 struct Heap<T: Comparable> {
     private var heap: [T] = []
+    private var sort: (T, T) -> Bool
+    
+    init(sort: @escaping (T, T) -> Bool) {
+        self.sort = sort
+    }
     
     mutating func insert(data: T) {
         if self.heap.count <= 1 {
@@ -22,7 +27,7 @@ struct Heap<T: Comparable> {
             }
             
             let parents = index / 2
-            return self.heap[index] > self.heap[parents]
+            return self.sort(self.heap[index], self.heap[parents])
         }
         
         self.heap.append(data)
@@ -56,17 +61,17 @@ struct Heap<T: Comparable> {
             
             // right는 없고 left만 있을 때
             if rightIndex >= self.heap.count {
-                return self.heap[leftIndex] > self.heap[index] ? .left : .stop
+                return self.sort(self.heap[leftIndex], self.heap[index]) ? .left : .stop
             }
             
             // root node가 값이 클 때
-            if (self.heap[index] >= self.heap[leftIndex]) && (self.heap[index] >= self.heap[rightIndex]) {
+            if (self.sort(self.heap[index], self.heap[leftIndex])) && (self.sort(self.heap[index], self.heap[rightIndex])) {
                 return .stop
             }
             
             // root node 값보다 left, right가 둘 다 클 때
-            if (self.heap[index] < self.heap[leftIndex]) && (self.heap[index] < self.heap[rightIndex]) {
-                if self.heap[rightIndex] < self.heap[leftIndex] {
+            if (self.sort(self.heap[index], self.heap[leftIndex])) && (self.sort(self.heap[index], self.heap[rightIndex])) {
+                if self.sort(self.heap[leftIndex], self.heap[rightIndex]) {
                     return .left
                 } else {
                     return .right
@@ -74,7 +79,7 @@ struct Heap<T: Comparable> {
             }
             
             // 이외
-            if self.heap[rightIndex] < self.heap[leftIndex] {
+            if self.sort(self.heap[leftIndex], self.heap[rightIndex]){
                 return .left
             } else {
                 return .right
@@ -106,7 +111,7 @@ struct Heap<T: Comparable> {
     }
 }
 
-var maxHeap = Heap<Int>()
+var maxHeap = Heap<Int>(sort: >)
 
 maxHeap.insert(data: 1)
 maxHeap.insert(data: 15)
@@ -128,3 +133,28 @@ print(maxHeap.showHeap())
 
 maxHeap.insert(data: 7)
 print(maxHeap.showHeap())
+
+print("------------------------")
+
+var minHeap = Heap<Int>(sort: <)
+
+minHeap.insert(data: 1)
+minHeap.insert(data: 15)
+minHeap.insert(data: 100)
+minHeap.insert(data: 50)
+print(minHeap.showHeap())
+
+minHeap.pop()
+print(minHeap.showHeap())
+
+minHeap.pop()
+print(minHeap.showHeap())
+
+minHeap.pop()
+print(minHeap.showHeap())
+
+minHeap.pop()
+print(minHeap.showHeap())
+
+minHeap.insert(data: 7)
+print(minHeap.showHeap())
