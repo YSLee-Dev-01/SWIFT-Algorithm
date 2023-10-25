@@ -158,3 +158,33 @@ print(minHeap.showHeap())
 
 minHeap.insert(data: 7)
 print(minHeap.showHeap())
+
+// Heap 자료구조는 Comparable를 준수하고 있기 때문에 사용자 정의 자료형을 사용할 수 있음
+struct Custom: Comparable {
+    static func < (lhs: Custom, rhs: Custom) -> Bool {
+        // 최소힙
+        lhs.value < rhs.value
+    }
+    
+    var name: String
+    var value: Int
+}
+
+var custom = Heap<Custom>(sort: <)
+custom.insert(data: .init(name: "A", value: 1))
+custom.insert(data: .init(name: "B", value: 20))
+custom.insert(data: .init(name: "C", value: 10))
+custom.insert(data: .init(name: "D", value: 100))
+print(custom.showHeap())
+
+print("삭제", custom.pop()!)
+print(custom.showHeap())
+
+print("삭제", custom.pop()!)
+print(custom.showHeap())
+
+print("삭제", custom.pop()!)
+print(custom.showHeap())
+
+custom.insert(data: .init(name: "E", value: 0))
+print(custom.showHeap())
