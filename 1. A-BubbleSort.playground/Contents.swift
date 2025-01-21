@@ -15,6 +15,33 @@ import UIKit
 ///
 /// 반복문 내부에 반복문을 사용하기 때문에 O(n^2)의 시간 복잡도를 가짐
 
+var intList = [50, 6, 0, 9, 100, 50, -1]
+
+func bubbleSort(_ value: [Int]) -> [Int] {
+    var sortedList = value
+    
+    for x in stride(from: value.count - 1, to: 0, by: -1) {
+        var isSwap = false
+        for y in 0 ..< x {
+            if sortedList[y] > sortedList[y + 1] {
+                sortedList.swapAt(y, y + 1)
+                isSwap = true // swap 작업이 한번이라도 이루어지지 않은 경우 이미 정렬된 상태이기 때문에, 바로 return
+            }
+        }
+        if !isSwap {
+            return sortedList
+        }
+    }
+    
+    return sortedList
+}
+
+print("원래 값")
+print(intList)
+
+print("정렬 후 값")
+print(bubbleSort(intList))
+
 // 이전 공부 기록
 //// 예시 데이터
 //var list = [1, 5, 9, 2, 10, 22, 4, 6, 20, 100]
