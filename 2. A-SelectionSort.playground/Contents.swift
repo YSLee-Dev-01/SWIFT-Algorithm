@@ -16,6 +16,31 @@ import UIKit
 ///
 /// 반복문 내부에 반복문을 사용하기 때문에 O(n^2)의 시간 복잡도를 가짐
 
+
+var intList = [20, 12, 5, 1, 100, 9, 50, 199, -14, -56]
+
+func selectionSort(_ value: [Int]) -> [Int] {
+    var sortedList = value
+    
+    for x in 0 ..< sortedList.count - 1 {
+        var minIndex = x
+        for y in x + 1 ..< sortedList.count {
+            if sortedList[minIndex] > sortedList[y] {
+                minIndex = y
+            }
+        }
+        if x == minIndex {continue}
+        sortedList.swapAt(x, minIndex)
+    }
+    return sortedList
+}
+
+print("원래 값")
+print(intList)
+
+print("정렬 후 값")
+print(selectionSort(intList))
+
 // 이전 공부 기록
 
 //// 예시 데이터
