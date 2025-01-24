@@ -17,6 +17,28 @@ import UIKit
 /// - Bubble, Selection 보다는 빠른 편임
 /// - 빅오표기법은 최악의 시간만을 나타내기 때문에 시간 복잡도는 동일함
 
+var intList = [1, 9, 10, 12, 100, 155, -99, 23, -1, 0, 5]
+
+func insertionSort(_ value: [Int]) -> [Int] {
+    var sortedList = value
+    
+    for x in 1 ..< sortedList.count {
+        for y in stride(from: x, to: 0, by: -1) {
+            if sortedList[y] > sortedList[y - 1] {
+                break
+            }
+            sortedList.swapAt(y, y - 1)
+        }
+    }
+    return sortedList
+}
+
+print("원래 값")
+print(intList)
+
+print("정렬 후 값")
+print(insertionSort(intList))
+
 // 이전 공부 기록
 //
 //// 예시 데이터
