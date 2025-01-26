@@ -66,14 +66,14 @@ print(factorialWithRecursiveCall(4))
 /// 계산의 누적을 담는 파라미터를 만들어, 스택을 다시 return 하는 것이 아닌 파라미터만 리턴함
 
 /// 꼬리재귀 함수를 사용한 factorial
-func factorialWithRecursiveCall(_ num: Int, result: Int) -> Int {
+func factorialWithRecursiveCall(_ num: Int, _ result: Int) -> Int {
     if num == 1 {
         return result
     }
-    return factorialWithRecursiveCall(num - 1, result: num - 1 * result)
+    return factorialWithRecursiveCall(num - 1, num * result)
 }
 
-print(factorialWithRecursiveCall(4))
+print(factorialWithRecursiveCall(4, 1))
 
 // 이전 공부 기록
 //// 재귀함수를 쓰지 않은 Factorial
