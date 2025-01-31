@@ -19,6 +19,27 @@ import UIKit
 /// 퀵정렬의 시간 복잡도는 O(n log n)으로 버블, 선택, 삽입 보다 빠른 알고리즘
 /// - 단, 첫번째 Index가 가장 크거나 작은 값이면 O(n^2)
 
+var list = [5, 5, 9, 2, 10, 22, 4, 6, 20, 100, 22, -1, 50]
+
+func quickSort(_ list: [Int]) -> [Int] {
+    if list.count <= 1 {
+        return list
+    }
+    var left: [Int] = []
+    var right: [Int] = []
+    
+    for index in 1 ..< list.count {
+        if list[0] > list[index] {
+            left.append(list[index])
+        } else {
+            right.append(list[index])
+        }
+    }
+    return quickSort(left) + [list[0]] + quickSort(right)
+}
+
+print(quickSort(list))
+
 // 이전 공부 기록
 //// 예시 데이터
 //var list = [1, 5, 9, 2, 10, 22, 4, 6, 20, 100, 22]
