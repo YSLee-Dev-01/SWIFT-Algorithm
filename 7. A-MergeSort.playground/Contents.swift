@@ -18,6 +18,48 @@ import UIKit
 ///
 /// 합병정렬의 시간복잡도는 퀵정렬과 동일한 O(n log n)
 
+var list = [1, 5, 9, 2, 10, 22, 4, 6, 20, 100, 22, 5, 1, 8, 20]
+
+func mergeSort(_ data: [Int]) -> [Int] {
+    if data.count == 1 {
+        return data
+    }
+    
+    var left = Array(data[0 ..< data.count / 2])
+    var right = Array(data[data.count / 2 ..< data.count])
+    return sort(mergeSort(left), mergeSort(right))
+}
+
+func sort(_ arrayOne: [Int], _ arrayTwo: [Int]) -> [Int] {
+    var oneIndex = 0
+    var twoIndex = 0
+    
+    var sortedArray: [Int] = []
+    while sortedArray.count != arrayOne.count + arrayTwo.count {
+        if oneIndex >= arrayOne.count {
+            sortedArray.append(arrayTwo[twoIndex])
+            twoIndex += 1
+            continue
+        } else if twoIndex >= arrayTwo.count {
+            sortedArray.append(arrayOne[oneIndex])
+            oneIndex += 1
+            continue
+        }
+        
+        if arrayOne[oneIndex] > arrayTwo[twoIndex] {
+            sortedArray.append(arrayTwo[twoIndex])
+            twoIndex += 1
+        } else {
+            sortedArray.append(arrayOne[oneIndex])
+            oneIndex += 1
+        }
+    }
+    
+    return sortedArray
+}
+
+print(mergeSort(list))
+
 // 이전 공부 기록
 //// 예시 데이터
 //var list = [1, 5, 9, 2, 10, 22, 4, 6, 20, 100, 22, 5, 1, 8, 20]
