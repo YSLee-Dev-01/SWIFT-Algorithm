@@ -10,8 +10,51 @@ import UIKit
 /// 구현 방법
 /// 1. 배열 가운데에 있는 데이터를 비교하여 해당 값이 (mid) 작을 경우 left, 클 경우 right로 이동하여 작업을 반복함
 /// - 배열 가운데에 있는 데이터가 원하는 데이터인경우 탐색을 종료
+/// - mid는 배열의 count / 2로 결정함
 ///
 /// 이진탐색은 완전탐색과 달리 O(log n)의 시간 복잡도를 가짐
+
+var list = [1, 1, 2, 4, 5, 5, 6, 8, 9, 10, 20, 20, 22, 22, 100]
+
+func binarySearch(_ array: [Int], checkData: Int) -> Bool {
+    if array.count == 1 {
+        return array[0] == checkData
+    }
+    
+    let mid = array.count / 2
+    
+    if array[mid] == checkData {
+        return true
+    } else if array[mid] < checkData {
+        return binarySearch(Array(array[mid + 1 ..< array.count]), checkData: checkData)
+    } else {
+        return binarySearch(Array(array[0 ..< mid]), checkData: checkData)
+    }
+}
+
+print(binarySearch(list, checkData: 22))
+
+
+func binarySearchWithLoop(_ array: [Int], checkData: Int) -> Bool {
+    var startIndex = 0
+    var endIndex = array.count - 1
+    
+    while startIndex != endIndex {
+        let mid = (startIndex + endIndex) / 2
+        
+        if array[mid] == checkData {
+            return true
+        } else if array[mid] < checkData {
+            startIndex = mid + 1
+        } else {
+            endIndex = mid - 1
+        }
+    }
+    return array[startIndex] == checkData
+}
+
+print(binarySearchWithLoop(list, checkData: 22))
+
 
 // 이전 공부 기록
 //// 예시 데이터
