@@ -22,6 +22,34 @@ import UIKit
 ///
 /// BFS는 O(V+E)의 시간복잡도를 가짐 (V는 노드의 수, E는 간선)
 
+// 예시 그래프
+let graph: [String: [String]] = [
+    "A": ["B", "C"],
+    "B": ["A", "D", "E"],
+    "C": ["A", "F", "G"],
+    "D": ["B"],
+    "E": ["B"],
+    "F": ["C"],
+    "G": ["C"]
+]
+
+func bfs(_ graph: [String: [String]], startNode: String) -> [String] {
+    var visitedNode: [String] = []
+    var needNode: [String] = [startNode]
+    
+    while !needNode.isEmpty {
+        let firstNode = needNode.removeFirst()
+        if visitedNode.contains(firstNode) {continue}
+        
+        visitedNode.append(firstNode)
+        needNode.append(contentsOf: graph[firstNode] ?? [])
+    }
+    
+    return visitedNode
+}
+
+print(bfs(graph, startNode: "A"))
+
 // 이전 공부 기록
 //// 예시 그래프
 //let graph: [String: [String]] = [
