@@ -21,7 +21,37 @@ import UIKit
 /// 4. queue에 저장된 값이 DFS를 통해 탐색된 순서
 ///
 /// DFS는 O(V+E)의 시간복잡도를 가짐 (V는 노드의 수, E는 간선)(BFS와 동일)
-///
+
+// 예시 그래프
+let graph: [String: [String]] = [
+    "A": ["B", "C"],
+    "B": ["A", "D"],
+    "C": ["A", "L"],
+    "D": ["B", "E"],
+    "E": ["D", "F", "G"],
+    "F": ["E", "H"],
+    "G": ["E", "I"],
+    "I": ["G"],
+    "L": ["C"],
+    "H": ["F"]
+]
+
+func dfs(_ graph: [String: [String]], start: String) -> [String] {
+    var visitedQueue: [String] = []
+    var needStack: [String] = [start]
+    
+    while !needStack.isEmpty {
+        let popValue = needStack.removeLast()
+        if visitedQueue.contains(popValue) { continue }
+        visitedQueue.append(popValue)
+        needStack.append(contentsOf: graph[popValue] ?? [])
+    }
+    
+    return visitedQueue
+}
+
+print(dfs(graph, start: "A"))
+
 
 // 이전 공부 기록
 //// 예시 그래프
