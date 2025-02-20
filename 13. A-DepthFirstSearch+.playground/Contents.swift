@@ -2,6 +2,7 @@ import UIKit
 
 /// 13. DFS+
 /// DFS, BFS를 풀기 위해서는 데이터를 그래프로 변환하는 작업이 필수적
+/// -> 단, 모든 Node가 연결되어 있는 경우 visited만 구별해서 작업할 수도 있음
 /// 아래는 인접 리스트 방식으로 데이터를 그래프화 하는 방식을 서술함
 ///
 /// 구현방법
@@ -10,10 +11,14 @@ import UIKit
 /// 3. 딕셔너리 key 값에 해당 데이터가 있는 지 확인
 /// - 만약 있을 경우 해당 배열에 새로운 데이터를 append 함
 /// - 없을 경우 새로운 array를 key에 등록함
+///
+/// DFS
+/// DFS는 모든 경우의 수를 구할 때 사용함
+/// - 재귀나, Stack을 이용
+/// - 재귀를 탈출할 때 무조건 return 값이 있어야 하는 것은 아니며, 간선이 없거나 잘못된 간선일 때 return 하는 구문도 존재해야함
 
 var n = 5
 var data = [[1, 2], [1, 3], [1, 4], [2, 1], [2, 4], [2, 5], [3, 2], [3, 4], [4, 5]]
-
 
 func dataToGraph(_ data: [[Int]]) -> [Int: [Int]] {
     var graph: [Int : [Int]] = [:]
@@ -30,8 +35,27 @@ func dataToGraph(_ data: [[Int]]) -> [Int: [Int]] {
     return graph
 }
 
+func dfs(_ n: Int, graph: [Int: [Int]]) -> Int {
+    var count = 0
+    
+    func check(_ visited: [Int], node: Int) {
+        if node == n {
+            count += 1
+            return
+        }
+        guard let branchs = graph[node] else {return}
+        for branch in branchs {
+            if visited.contains(branch) {continue}
+            check(visited + [branch], node: branch)
+        }
+    }
+    check([1], node: 1)
+    return count
+}
+
 let graph = dataToGraph(data)
 print(graph)
+print(dfs(n, graph: graph))
 
 // 이전 공부 기록
 //// 데이터 -> 그래프화
